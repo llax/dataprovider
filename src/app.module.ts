@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { TerminusModule } from '@nestjs/terminus';
 
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
@@ -7,9 +8,11 @@ import { FilmModule } from './film/film.module';
 import { TvShowModule } from './tv-show/tv-show.module';
 import { CardModule } from './card/card.module';
 import { configService } from './config/config.service';
+import { HealthController } from './health/health.controller';
 
 @Module({
   imports: [
+    TerminusModule,
     UserModule,
     AuthModule,
     FilmModule,
@@ -17,7 +20,7 @@ import { configService } from './config/config.service';
     CardModule,
     TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
   ],
-  controllers: [],
+  controllers: [HealthController],
   providers: [],
 })
 export class AppModule {}

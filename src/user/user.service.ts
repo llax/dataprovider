@@ -5,6 +5,8 @@ import { Repository } from 'typeorm';
 import { UserEntity } from './entities/user.entity';
 import { UserDTO } from './dto/user.dto';
 import { UserSecurityModel } from './models/user-security.model';
+import { CreateUserDTO } from './dto/create-user.dto';
+import { DeleteUserDTO } from './dto/delete-user.dto';
 
 @Injectable()
 export class UserService {
@@ -19,11 +21,15 @@ export class UserService {
   }
 
   public async create(
-    userDto: UserDTO,
+    userDto: CreateUserDTO,
     security: UserSecurityModel,
   ): Promise<UserDTO> {
     return this.repo
-      .save(UserDTO.toEntity(userDto, security))
+      .save(CreateUserDTO.toEntity(userDto, security))
       .then((entity) => UserDTO.fromEntity(entity));
+  }
+
+  public async delete({ id }: DeleteUserDTO) {
+    return await this.repo.delete(id);
   }
 }

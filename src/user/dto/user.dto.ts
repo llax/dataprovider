@@ -1,9 +1,12 @@
 import { ApiModelProperty } from '@nestjs/swagger/dist/decorators/api-model-property.decorator';
-import { IsEmail, IsString } from 'class-validator';
+import { IsEmail, IsString, IsUUID } from 'class-validator';
 import { UserEntity } from '../entities/user.entity';
-import { UserSecurityModel } from '../models/user-security.model';
 
 export class UserDTO implements Readonly<UserDTO> {
+  @ApiModelProperty({ required: false })
+  @IsUUID()
+  id: string;
+
   @ApiModelProperty({ required: true })
   @IsString()
   username: string;
@@ -32,6 +35,7 @@ export class UserDTO implements Readonly<UserDTO> {
 
   public static fromEntity(entity: UserEntity) {
     return this.from({
+      id: entity.id,
       username: entity.username,
       email: entity.email,
       name: entity.name,
@@ -39,9 +43,9 @@ export class UserDTO implements Readonly<UserDTO> {
     });
   }
 
-  public static toEntity(userDto: UserDTO, security: UserSecurityModel) {
+  public static toEntity(userDto: UserDTO) {
     const it = new UserEntity();
-    Object.assign(it, userDto, security);
+    Object.assign(it, userDto);
     return it;
   }
 }
