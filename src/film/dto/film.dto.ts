@@ -8,5 +8,9 @@ export class FilmDTO implements Readonly<FilmDTO> {
 
   @ApiModelProperty({ required: true })
   @IsString()
+  title: string;
+
+  @ApiModelProperty({ required: true })
+  @IsString()
   path: string;
 }

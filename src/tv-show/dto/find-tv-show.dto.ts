@@ -1,7 +1,7 @@
 import { IsUUID } from 'class-validator';
 import { ApiModelProperty } from '@nestjs/swagger/dist/decorators/api-model-property.decorator';
 
-export class DeleteFilmDTO implements Readonly<DeleteFilmDTO> {
+export class FindTvShowDTO implements Readonly<FindTvShowDTO> {
   @ApiModelProperty({ required: true })
   @IsUUID()
   id: string;

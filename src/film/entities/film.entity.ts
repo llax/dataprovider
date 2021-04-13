@@ -6,5 +6,8 @@ export class FilmEntity {
   id: string;
 
   @Column({ nullable: false })
+  title: string;
+
+  @Column({ nullable: false })
   path: string;
 }

@@ -1,8 +1,8 @@
 import { IsString } from 'class-validator';
 import { ApiModelProperty } from '@nestjs/swagger/dist/decorators/api-model-property.decorator';
 
-export class CreateFilmDTO implements Readonly<CreateFilmDTO> {
+export class CreateTvShowDTO implements Readonly<CreateTvShowDTO> {
   @ApiModelProperty({ required: true })
   @IsString()
-  path: string;
+  title: string;
 }
