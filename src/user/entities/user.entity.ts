@@ -20,6 +20,6 @@ export class UserEntity {
   @Column({ nullable: true })
   surname: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   token: string;
 }

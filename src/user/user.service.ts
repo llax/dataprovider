@@ -20,6 +20,10 @@ export class UserService {
       .then((entities) => entities.map((entity) => UserDTO.fromEntity(entity)));
   }
 
+  public async findOne(username: string) {
+    return await this.repo.findOne({ where: { username } });
+  }
+
   public async create(
     userDto: CreateUserDTO,
     security: UserSecurityModel,
@@ -31,5 +35,10 @@ export class UserService {
 
   public async delete({ id }: DeleteUserDTO) {
     return await this.repo.delete(id);
+  }
+
+  public async setToken(user: UserEntity, token: string) {
+    user.token = token;
+    return this.repo.save(user);
   }
 }
