@@ -1,5 +1,5 @@
 import { ApiModelProperty } from '@nestjs/swagger/dist/decorators/api-model-property.decorator';
-import { IsString } from 'class-validator';
+import { IsEmail, IsString } from 'class-validator';
 
 export class RegisterDTO implements Readonly<RegisterDTO> {
   @ApiModelProperty({ required: true })
@@ -11,7 +11,7 @@ export class RegisterDTO implements Readonly<RegisterDTO> {
   password: string;
 
   @ApiModelProperty({ required: true })
-  @IsString()
+  @IsEmail()
   email: string;
 
   @ApiModelProperty({ required: false })

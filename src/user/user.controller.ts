@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, ValidationPipe } from '@nestjs/common';
 
 import { UserService } from './user.service';
 import { UserDTO } from './dto/user.dto';
@@ -14,7 +14,9 @@ export class UserController {
   }
 
   @Post('/delete')
-  public async deleteUser(@Body() deleteUser: DeleteUserDTO) {
+  public async deleteUser(
+    @Body(new ValidationPipe()) deleteUser: DeleteUserDTO,
+  ) {
     return await this.userService.delete(deleteUser);
   }
 }
