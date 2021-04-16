@@ -1,10 +1,13 @@
-FROM node:lts-alpine3.13
+FROM node:lastest-alpine
 
-WORKDIR /app
+WORKDIR app/
 
-COPY package*.json yarn.lock ./
+COPY package*.json ./
+
 RUN npm install
 
 COPY . .
 
-npm run start
+ENV PORT=${DBPORT}
+
+RUN npm run start
