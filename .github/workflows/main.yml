@@ -1,0 +1,21 @@
+name: Docker Image CI
+
+on: [push]
+
+jobs:
+
+  build:
+ 
+    runs-on: ubuntu-latest
+ 
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag docker.pkg.github.com/llax/dataprovider/dataprovider:githubactions
+    
+    - name: Log into registry
+      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+      
+    - name: Push Docker image to Github package registry
+      run: docker push docker.pkg.github.com/llax/dataprovider/dataprovider:githubactions
