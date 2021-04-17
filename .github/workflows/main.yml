@@ -12,10 +12,10 @@ jobs:
     - uses: actions/checkout@v1
 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag docker.pkg.github.com/llax/dataprovider/dataprovider:githubactions
+      run: docker build . --file Dockerfile --tag docker.pkg.github.com/llax/dataprovider/dataprovider:latest
     
     - name: Log into registry
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
       
     - name: Push Docker image to Github package registry
-      run: docker push docker.pkg.github.com/llax/dataprovider/dataprovider:githubactions
+      run: docker push docker.pkg.github.com/llax/dataprovider/dataprovider:latest
