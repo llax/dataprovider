@@ -1,13 +1,9 @@
-FROM node:lastest-alpine
-
-WORKDIR app/
-
-COPY package*.json ./
-
-RUN npm install
+FROM node:14-alpine
 
 COPY . .
 
-ENV PORT=${DBPORT}
+RUN npm install
 
-RUN npm run start
+RUN npm build
+
+CMD ["npm", "start"]
