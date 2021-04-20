@@ -1,10 +1,24 @@
-import { Body, Controller, Get, Post, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  UseFilters,
+  ValidationPipe,
+} from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+
 import { FilmService } from './film.service';
+
 import { FilmDTO } from './dto/film.dto';
 import { CreateFilmDTO } from './dto/create-film.dto';
 import { DeleteFilmDTO } from './dto/delete-film.dto';
-import { FindFilmDTO } from './dto/find-film.dto';
 
+import { InternalServerErrorFilter } from '../internal-error.filter';
+
+@ApiTags('film')
 @Controller('film')
 export class FilmController {
   constructor(private filmService: FilmService) {}
@@ -14,11 +28,10 @@ export class FilmController {
     return this.filmService.getAll();
   }
 
-  @Get('one')
-  async findFilm(
-    @Body(new ValidationPipe()) film: FindFilmDTO,
-  ): Promise<FilmDTO> {
-    return this.filmService.find(film);
+  @Get('/:id')
+  @UseFilters(new InternalServerErrorFilter())
+  async findFilm(@Param('id') id: string): Promise<FilmDTO> {
+    return this.filmService.find({ id });
   }
 
   @Post()
@@ -28,7 +41,7 @@ export class FilmController {
     return this.filmService.createFilm(film);
   }
 
-  @Post('delete')
+  @Delete()
   async deleteFilm(@Body(new ValidationPipe()) film: DeleteFilmDTO) {
     return this.filmService.delete(film);
   }

@@ -1,9 +1,14 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+
 import { TvShowService } from './tv-show.service';
+
 import { TvShowDTO } from './dto/tv-show.dto';
 import { CreateTvShowDTO } from './dto/create-tv-show.dto';
 import { CreateTvShowEpisodeDTO } from './dto/create-tv-show-episode.dto';
+import { DeleteTvShowDTO } from './dto/delete-tv-show.dto';
 
+@ApiTags('tv show')
 @Controller('tv-show')
 export class TvShowController {
   constructor(private tvShow: TvShowService) {}
@@ -25,8 +30,8 @@ export class TvShowController {
     return this.tvShow.addTvShowEpisode(episode);
   }
 
-  @Post('delete')
-  async deleteTvShow(@Body() tvShow: TvShowDTO) {
+  @Delete()
+  async deleteTvShow(@Body() tvShow: DeleteTvShowDTO) {
     return this.tvShow.deleteTvShow(tvShow);
   }
 }

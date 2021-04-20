@@ -16,6 +16,8 @@ export class TvShowSeriesEntity {
   @Column()
   path: string;
 
-  @ManyToOne(() => TvShowEntity, (show) => show.episodes)
+  @ManyToOne(() => TvShowEntity, (show) => show.episodes, {
+    onDelete: 'CASCADE',
+  })
   show: TvShowDTO;
 }

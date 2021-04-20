@@ -4,5 +4,9 @@ import { ApiModelProperty } from '@nestjs/swagger/dist/decorators/api-model-prop
 export class CreateFilmDTO implements Readonly<CreateFilmDTO> {
   @ApiModelProperty({ required: true })
   @IsString()
+  title: string;
+
+  @ApiModelProperty({ required: true })
+  @IsString()
   path: string;
 }
