@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { CardEntity } from './card.entity';
 
 @Entity('user')
 export class UserEntity {
@@ -22,4 +23,9 @@ export class UserEntity {
 
   @Column({ nullable: true })
   token: string;
+
+  @OneToMany(() => CardEntity, (card) => card.user, {
+    cascade: true,
+  })
+  cards: CardEntity[];
 }
